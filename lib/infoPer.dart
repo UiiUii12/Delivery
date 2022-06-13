@@ -49,7 +49,7 @@ class _InfoPersoState extends State<InfoPerso> {
                       size: Size.fromRadius(16),
                       child: FloatingActionButton(
                         onPressed: () {
-                          Navigator.push(
+                         Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
@@ -95,17 +95,20 @@ class _InfoPersoState extends State<InfoPerso> {
                                width: 305.45.h,
                             child: Row(
                             children: [
+                              SizedBox(width: 10.w,),
                               Icon(
                                 MdiIcons.account,
                                 color: Colors.black,
                                 size: 25.sp,
                               ),
+                              SizedBox(width: 10.w,),
                               AutoSizeText(
                                 '$livN',
                                 style: TextStyle(
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.bold),
                               ),
+
                             ],
                           ),
                         )),
@@ -118,11 +121,13 @@ class _InfoPersoState extends State<InfoPerso> {
                               width: 305.45.h,
                             child: Row(
                             children: [
+                              SizedBox(width: 10.w,),
                               Icon(
                                 MdiIcons.email,
                                 color: Colors.black,
                                 size: 25.sp,
                               ),
+                              SizedBox(width: 10.w,),
                               AutoSizeText(
                                 user.email.toString(),
                                 style: TextStyle(
@@ -141,11 +146,13 @@ class _InfoPersoState extends State<InfoPerso> {
                               width: 305.45.h,
                             child: Row(
                             children: [
+                              SizedBox(width: 10.w,),
                               Icon(
                                 MdiIcons.phone,
                                 color: Colors.black,
                                 size: 25.sp,
                               ),
+                              SizedBox(width: 10.w,),
                               AutoSizeText(
                                 '$livPh',
                                 style: TextStyle(
@@ -164,22 +171,18 @@ class _InfoPersoState extends State<InfoPerso> {
                               width: 305.45.h,
                             child: Row(
                             children: [
+                              SizedBox(width: 10.w,),
                               Icon(
                                 MdiIcons.identifier,
                                 color: Colors.black,
                                 size: 25.sp,
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => Historiques()));
-                                },
-                                child: AutoSizeText(
-                                  '$livI',
-                                  style: TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.bold),
-                                ),
+                              SizedBox(width: 10.w,),
+                              AutoSizeText(
+                                '${livI.substring(0,9)}',
+                                style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold),
                               )
                             ],
                           ),
@@ -325,7 +328,7 @@ class _InfoPersoState extends State<InfoPerso> {
                                       builder: (context) => Historiques()));
                                 },
                                 child: AutoSizeText(
-                                  '$livI',
+                                  '${livI.substring(4)}',
                                   style: TextStyle(
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.bold),

@@ -14,7 +14,6 @@ class Drawer_item extends StatelessWidget {
   final Function() onPressed;
   @override
   Widget build(BuildContext context) {
-    double WidthSize = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: onPressed,
       child: SizedBox(
@@ -31,7 +30,7 @@ class Drawer_item extends StatelessWidget {
               name,
               style: TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: WidthSize * (14.sp / 392.72).w,
+                fontSize: 14.sp ,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
