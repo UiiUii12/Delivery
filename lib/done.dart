@@ -86,6 +86,7 @@ class _DoneState extends State<Done> {
                         .updateArchive(user.uid, time, date, h);
                     await DatabaseService(uid: user.uid).deletecommande();
                     await DatabaseService(uid: user.uid).setupexist();
+                    await DatabaseService(uid: user.uid).UpdateExistCommande();
                     Navigator.push(
                         context,
                         MaterialPageRoute(

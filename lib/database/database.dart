@@ -7,9 +7,9 @@ import '../livreur/theorder.dart';
 
 class DatabaseService {
   final String uid ;
- static List<TheOrder>? list;
- static String? imag ,sexe;
- static double? latR,longR,latC,longC,Nemero;
+ static List<TheOrder>? list,orderl;
+ static String? imag ,sexe,ID,IdRes;
+ static double? latR,longR,latC,longC,Nemero,lo,la;
   DatabaseService( { required this.uid});
 
 
@@ -46,7 +46,7 @@ List <Historique> _historiqueList(QuerySnapshot snapshot ){
   Commande _commandeList(DocumentSnapshot  snapshot){
 
 
-  return Commande(LatitudeClient:snapshot.get("LatitudeClient").toDouble(),LatitudeRestoront: snapshot.get("LatitudeRestaurant").toDouble(),LongitudeClient :snapshot.get("LongitudeClient").toDouble() ,LongitudeRestorant: snapshot.get("LongitudeRestaurant").toDouble(), Nemero: snapshot.get("Nemero").toDouble() );
+  return Commande(LatitudeClient:snapshot.get("LatitudeClient").toDouble(),LatitudeRestoront: snapshot.get("LatitudeRestaurant").toDouble(),LongitudeClient :snapshot.get("LongitudeClient").toDouble() ,LongitudeRestorant: snapshot.get("LongitudeRestaurant").toDouble(), Nemero: snapshot.get("Nemero").toDouble(),ID:snapshot.get("Nemero").toString() );
 
 
 
@@ -116,12 +116,13 @@ Stream <Userdata> get userData{
     longR=  value.get("LongitudeRestaurant").toDouble();
     longC= value.get("LongitudeClient").toDouble();
     Nemero= value.get("Nemero").toDouble();
+    ID=value.get("ID").toString();
     } );
 
 
-latR ??= 0;latC ??= 0;longC??= 0;longR ??= 0;Nemero ??= 0;
+latR ??= 0;latC ??= 0;longC??= 0;longR ??= 0;Nemero ??= 0;ID??="";
 
-    return Commande(LatitudeClient:latC!,LatitudeRestoront: latR!,LongitudeClient:longC! ,LongitudeRestorant:longR!, Nemero: Nemero! ) ;
+    return Commande(LatitudeClient:latC!,LatitudeRestoront: latR!,LongitudeClient:longC! ,LongitudeRestorant:longR!, Nemero: Nemero! ,ID:ID!) ;
 
 
 
@@ -149,6 +150,54 @@ String sexe1(){
   livreurCollection.doc(uid).get().then((value) => sexe= value.get("sexe"));
   sexe??="M";
   return sexe!;
+}
+/////////////////////////////////////////////////////////////////////////////////////////
+  UpdateExistCommande()async{
+
+
+    await  FirebaseFirestore.instance.collection('client').doc(ID!).update({"existCommande":true});
+  }
+  /////////////////////////////////////////////////////////////
+  creecommande(Commande commande)async{
+
+
+     await livreurCollection.doc(uid).collection("commandes").doc("commande").set({"LatitudeClient":commande.LatitudeClient,"LatitudeRestoront": commande.LatitudeRestoront,"LongitudeClient":commande.LongitudeClient ,"LongitudeRestorant":commande.LongitudeRestorant, "Nemero": commande.Nemero ,"ID":commande.ID,"exist":true});
+
+
+  }
+  List <String> _arriverList(QuerySnapshot snapshot ){
+
+    return snapshot.docs.map((doc)
+    {
+
+      return doc.id;
+
+    }).toList();
+
+  }
+  Stream<List <String>> get arriverList {
+    return FirebaseFirestore.instance.collection('Commmandes').snapshots().map((snapshot)=> _arriverList(snapshot));
+
+  }
+  List <TheOrder> _orderList(QuerySnapshot snapshot ){
+
+    return snapshot.docs.map((doc)
+    {
+      IdRes = doc.get("ResId");
+      return TheOrder(nomplat: doc.get("nom").toString()+"  "+doc.get("description").toString(), quantite: doc.get("uantite"));
+
+
+    }).toList();
+
+  }
+  Stream<List <TheOrder>> order (String id){
+    return FirebaseFirestore.instance.collection('Commandes').doc(id).collection("commande").snapshots().map((snapshot)=> _orderList(snapshot));
+
+  }
+ getLonLat(String id)async{
+  await FirebaseFirestore.instance.collection('Restaurant').doc(id).get().then((value) => la=value.get("latitude"));
+  await FirebaseFirestore.instance.collection('Restaurant').doc(id).get().then((value) => lo=value.get("longitude"));
+
 }
 
 }

@@ -27,9 +27,7 @@ class _commandeState extends State<commande> {
             DatabaseService.list = snapshot.data!;
             List<TheOrder> commande = snapshot.data!;
             DatabaseService.list = commande;
-            print("//////////////////7777777777777777777777777");
-            print(commande == null);
-            print(DatabaseService.list == null);
+
             return SafeArea(
                 child: Scaffold(
               body: Stack(
