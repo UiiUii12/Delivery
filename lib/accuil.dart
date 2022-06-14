@@ -131,8 +131,8 @@ class _AcceuilState extends State<Acceuil> {
     );
 
     StreamSubscription<Position> positionStream =
-        Geolocator.getPositionStream(locationSettings: locationSettings)
-            .listen((Position position) {
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position position) {
       print(position.longitude); //Output: 80.24599079
       print(position.latitude); //Output: 29.6593457
 
@@ -161,8 +161,8 @@ class _AcceuilState extends State<Acceuil> {
     );
 
     StreamSubscription<Position> positionStream =
-        Geolocator.getPositionStream(locationSettings: locationSettings)
-            .listen((Position position) {
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position position) {
       print(position.longitude); //Output: 80.24599079
       print(position.latitude); //Output: 29.6593457
 
@@ -281,7 +281,7 @@ class _AcceuilState extends State<Acceuil> {
                                     ),
                                     Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       children: [
                                         Container(
                                           margin: EdgeInsets.symmetric(
@@ -292,17 +292,17 @@ class _AcceuilState extends State<Acceuil> {
                                             child: IconButton(
                                               icon: sexe == "M"
                                                   ? Icon(
-                                                      MdiIcons.accountOutline,
-                                                      color: const Color(
-                                                          0xffB80000),
-                                                      size: 35.sp,
-                                                    )
+                                                MdiIcons.accountOutline,
+                                                color: const Color(
+                                                    0xffB80000),
+                                                size: 35.sp,
+                                              )
                                                   : Icon(
-                                                      MdiIcons.humanFemaleGirl,
-                                                      color: const Color(
-                                                          0xffB80000),
-                                                      size: 35.sp,
-                                                    ),
+                                                MdiIcons.humanFemaleGirl,
+                                                color: const Color(
+                                                    0xffB80000),
+                                                size: 35.sp,
+                                              ),
                                               onPressed: () {
                                                 Scaffold.of(context)
                                                     .openDrawer();
@@ -346,35 +346,35 @@ class _AcceuilState extends State<Acceuil> {
                       ////////////////////////////////////////////////////////////////////
                       notif != null
                           ? Padding(
-                              padding:
-                                  EdgeInsets.fromLTRB(31.w, 630.h, 31.w, 8.h),
-                              child: ConfirmationSlider(
-                                  sliderButtonContent: Icon(
-                                    Icons.double_arrow,
-                                    color: const Color(0xffB80000),
-                                    size: 27.sp,
-                                  ),
-                                  foregroundColor: Colors.transparent,
-                                  height: 50.h,
-                                  width: 297.0.w,
-                                  backgroundColor: Colors.white,
-                                  iconColor: Color(0xffF9F8F8),
-                                  text: " Suivant",
-                                  textStyle: TextStyle(
-                                    color: Color(0xffB80000),
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  onConfirmation: () {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              null == widget.destination
-                                                  ? Livrer()
-                                                  : widget.destination),
-                                    );
-                                  }))
+                          padding:
+                          EdgeInsets.fromLTRB(31.w, 630.h, 31.w, 8.h),
+                          child: ConfirmationSlider(
+                              sliderButtonContent: Icon(
+                                Icons.double_arrow,
+                                color: const Color(0xffB80000),
+                                size: 27.sp,
+                              ),
+                              foregroundColor: Colors.transparent,
+                              height: 50.h,
+                              width: 297.0.w,
+                              backgroundColor: Colors.white,
+                              iconColor: Color(0xffF9F8F8),
+                              text: " Suivant",
+                              textStyle: TextStyle(
+                                color: Color(0xffB80000),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              onConfirmation: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                      null == widget.destination
+                                          ? Livrer()
+                                          : widget.destination),
+                                );
+                              }))
                           : Container(),
                     ],
                   )
@@ -401,7 +401,7 @@ class _AcceuilState extends State<Acceuil> {
   _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
     MarkerId markerId = MarkerId(id);
     Marker marker =
-        Marker(markerId: markerId, icon: descriptor, position: position);
+    Marker(markerId: markerId, icon: descriptor, position: position);
     markers[markerId] = marker;
   }
 

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:untitled1/auth/userdata.dart';
 import 'package:untitled1/livreur/historique.dart';
+import 'package:untitled1/wrapper3.dart';
 import '../livreur/commande.dart';
 import '../livreur/theorder.dart';
 //hi
@@ -8,7 +9,7 @@ import '../livreur/theorder.dart';
 class DatabaseService {
   final String uid ;
  static List<TheOrder>? list,orderl;
- static String? imag ,sexe,ID,IdRes;
+ static String? imag ,sexe,ID,IdRes,IdCommande;
  static double? latR,longR,latC,longC,Nemero,lo,la;
   DatabaseService( { required this.uid});
 
@@ -161,44 +162,85 @@ String sexe1(){
   creecommande(Commande commande)async{
 
 
-     await livreurCollection.doc(uid).collection("commandes").doc("commande").set({"LatitudeClient":commande.LatitudeClient,"LatitudeRestoront": commande.LatitudeRestoront,"LongitudeClient":commande.LongitudeClient ,"LongitudeRestorant":commande.LongitudeRestorant, "Nemero": commande.Nemero ,"ID":commande.ID,"exist":true});
-
+     await livreurCollection.doc(uid).collection("commandes").doc("commande").update({"LatitudeClient":commande.LatitudeClient,"LatitudeRestaurant": commande.LatitudeRestoront,"LongitudeClient":commande.LongitudeClient ,"LongitudeRestaurant":commande.LongitudeRestorant, "Nemero": commande.Nemero ,"ID":commande.ID,"exist":true});
+Wrapper3.exi=true;
 
   }
   List <String> _arriverList(QuerySnapshot snapshot ){
 
+
     return snapshot.docs.map((doc)
     {
-
-      return doc.id;
+      return doc.id.toString();
 
     }).toList();
 
   }
   Stream<List <String>> get arriverList {
-    return FirebaseFirestore.instance.collection('Commmandes').snapshots().map((snapshot)=> _arriverList(snapshot));
+
+    return FirebaseFirestore.instance.collection('Commandes').snapshots().map((snapshot)=> _arriverList(snapshot));
 
   }
   List <TheOrder> _orderList(QuerySnapshot snapshot ){
 
     return snapshot.docs.map((doc)
     {
+
       IdRes = doc.get("ResId");
-      return TheOrder(nomplat: doc.get("nom").toString()+"  "+doc.get("description").toString(), quantite: doc.get("uantite"));
+      IdCommande=doc.id;
+
+print(doc.get("nom").toString()+"  "+doc.get("description").toString());
+print(doc.get("quentite"));
+      return TheOrder(nomplat: doc.get("nom").toString()+"  "+doc.get("description").toString(), quantite: doc.get("quentite").toString());
 
 
     }).toList();
 
   }
   Stream<List <TheOrder>> order (String id){
-    return FirebaseFirestore.instance.collection('Commandes').doc(id).collection("commande").snapshots().map((snapshot)=> _orderList(snapshot));
+
+    return FirebaseFirestore.instance.collection('Commandes').doc(id).collection("commade").snapshots().map((snapshot)=> _orderList(snapshot));
 
   }
- getLonLat(String id)async{
-  await FirebaseFirestore.instance.collection('Restaurant').doc(id).get().then((value) => la=value.get("latitude"));
-  await FirebaseFirestore.instance.collection('Restaurant').doc(id).get().then((value) => lo=value.get("longitude"));
+ getLonLat()async{
+
+  await FirebaseFirestore.instance.collection('Restaurant').doc(IdRes).get().then((value) => la=value.get("latitude"));
+  await FirebaseFirestore.instance.collection('Restaurant').doc(IdRes).get().then((value) => lo=value.get("longitude"));
+
 
 }
 
+  Commande commande2(String id){
+
+
+    FirebaseFirestore.instance.collection('Commandes').doc(id).collection("commade").doc(IdCommande).get().then((value) {
+      latR=la;
+      latC=  value.get("Latitude").toDouble();
+      longR=  lo;
+      longC= value.get("Longitude").toDouble();
+      Nemero= 0;
+      ID=value.get("UserID").toString();
+    } );
+
+
+    latR ??= 0;latC ??= 0;longC??= 0;longR ??= 0;Nemero ??= 0;ID??="";
+
+    return Commande(LatitudeClient:latC!,LatitudeRestoront: latR!,LongitudeClient:longC! ,LongitudeRestorant:longR!, Nemero: Nemero! ,ID:ID!) ;
+
+
+
+
+  }
+  creeOrther()async{
+    for(int i =0;i<orderl!.length;i++){
+      await livreurCollection.doc(uid).collection("commandes").doc("commande").collection("plats").add({"nom":orderl![i].nomplat,"quantite":orderl![i].quantite });
+    }
+  }
+  suppremercommande(String id)async{
+  await FirebaseFirestore.instance.collection('Commandes').doc(id).delete();
+  }
+  setupdown() async {
+    await livreurCollection.doc(uid).collection("commandes").doc("commande").update({"exist":true});
+  }
 }
 
