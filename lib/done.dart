@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled1/wrapper.dart';
 import 'package:untitled1/wrapper2.dart';
 import 'accuil.dart';
 import 'auth/user.dart';
@@ -91,7 +92,7 @@ class _DoneState extends State<Done> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Wrapper2()
+                          builder: (context) => Wrapper()
                         ));
                   },
                   child: AutoSizeText('C\'est parti',

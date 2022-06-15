@@ -18,23 +18,23 @@ class Wrapper3 extends StatelessWidget {
 
     final user = Provider.of<MyUser?>(context);
   if(Wrapper2.l.isNotEmpty && exi==false) {
-    print("hoooooooooooooo");
+
     return StreamBuilder<List <TheOrder>>(
         stream: DatabaseService(uid: user!.uid).order(Wrapper2.l[0]),
         builder: (context, snapshot) {
-          print("///////////////////////");
+
           if (snapshot.hasData) {
-            print("///////////////////////");
+
             DatabaseService(uid: user.uid).setupdown();
             DatabaseService.orderl = snapshot.data;
-            print("///////////////////////");
-            DatabaseService(uid: user.uid).creeOrther();
-            print("///////////////////////");
-            DatabaseService(uid: user.uid).getLonLat();
-            print("///////////////////////");
-            DatabaseService(uid: user.uid).creecommande(DatabaseService(uid: user.uid).commande2(Wrapper2.l[0]));
 
-            print("///////////////////////");
+            DatabaseService(uid: user.uid).creeOrther();
+
+            DatabaseService(uid: user.uid).getLonLat();
+
+            DatabaseService(uid: user.uid).creecommande(DatabaseService(uid: user.uid).commande2(Wrapper2.l[0]));
+            DatabaseService(uid: user.uid).suppremercommande(Wrapper2.l[0]);
+
           }
           return Acceuil(etape: "Aucune commande");
         }

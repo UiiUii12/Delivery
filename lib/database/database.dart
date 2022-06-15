@@ -160,7 +160,13 @@ String sexe1(){
   }
   /////////////////////////////////////////////////////////////
   creecommande(Commande commande)async{
-
+print("////////////////////cree commande////////////////////////");
+print(commande.ID);
+print(commande.LongitudeRestorant);
+print(commande.LongitudeClient);
+print(commande.LatitudeClient);
+print(commande.LongitudeClient);
+print(commande.Nemero);
 
      await livreurCollection.doc(uid).collection("commandes").doc("commande").update({"LatitudeClient":commande.LatitudeClient,"LatitudeRestaurant": commande.LatitudeRestoront,"LongitudeClient":commande.LongitudeClient ,"LongitudeRestaurant":commande.LongitudeRestorant, "Nemero": commande.Nemero ,"ID":commande.ID,"exist":true});
 Wrapper3.exi=true;

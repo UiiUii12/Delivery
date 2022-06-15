@@ -35,16 +35,16 @@ static List <String> l=[];
 
 
                if(snapshot.data!.exist==false && !Wrapper2.l.isEmpty){
-                 print("faaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
+                   Wrapper3.exi=false;
                  return Wrapper3();
 
                }else{
-                 print("moounikkkkkkkkkkkkkkkkkkkkk");
+
                  return Acceuil(etape: "Aucune commande");
                }
              }else {
-               print("moounikkkkkkkkkkkkkkkkkkkkk");
+
                return Acceuil(etape: "Aucune commande");
              }
 
